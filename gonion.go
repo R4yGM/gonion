@@ -2,6 +2,6 @@ package gonion
 
 import "fmt"
 
-func test() {
+func Test() {
     fmt.Println("testing")
 }
