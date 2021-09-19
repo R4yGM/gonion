@@ -8,13 +8,18 @@ import (
 	"net/url"
 )
 
+// initialize the client for gonion
 type Client struct {
 	UserAgent  string
 	HttpClient *http.Client
 }
 
+// returns results from https://onionoo.torproject.org/summary
 func (c *Client) Summary(args Params) SSummary {
 	req, err := c.SendRequest("/summary", args)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	resp, err := c.HttpClient.Do(req)
 	if err != nil {
@@ -22,20 +27,22 @@ func (c *Client) Summary(args Params) SSummary {
 	}
 
 	defer resp.Body.Close()
-
+	var Sum SSummary
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-	var Sum SSummary
-	body, err := ioutil.ReadAll(resp.Body)
 	json.Unmarshal([]byte(body), &Sum)
 	return Sum
 }
 
+// returns results from https://onionoo.torproject.org/details
 func (c *Client) Details(args Params) SDetails {
 
 	req, err := c.SendRequest("/details", args)
-
+	if err != nil {
+		log.Fatal(err)
+	}
 	resp, err := c.HttpClient.Do(req)
 	if err != nil {
 		log.Fatal(err)
@@ -43,80 +50,92 @@ func (c *Client) Details(args Params) SDetails {
 
 	defer resp.Body.Close()
 
+	var Det SDetails
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-	var Det SDetails
-	body, err := ioutil.ReadAll(resp.Body)
 	json.Unmarshal([]byte(body), &Det)
 	return Det
 
 }
 
+// returns results from https://onionoo.torproject.org/bandwidth
 func (c *Client) Bandwidth(args Params) SBandwidth {
 
 	req, err := c.SendRequest("/bandwidth", args)
-
+	if err != nil {
+		log.Fatal(err)
+	}
 	resp, err := c.HttpClient.Do(req)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	defer resp.Body.Close()
-
+	var Ban SBandwidth
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-	var Ban SBandwidth
-	body, err := ioutil.ReadAll(resp.Body)
 	json.Unmarshal([]byte(body), &Ban)
 	return Ban
 
 }
+
+// returns results from https://onionoo.torproject.org/bandwidth
 func (c *Client) Weights(args Params) SWeights {
 
 	req, err := c.SendRequest("/weights", args)
-
+	if err != nil {
+		log.Fatal(err)
+	}
 	resp, err := c.HttpClient.Do(req)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	defer resp.Body.Close()
-
+	var Wei SWeights
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-	var Wei SWeights
-	body, err := ioutil.ReadAll(resp.Body)
 	json.Unmarshal([]byte(body), &Wei)
 	return Wei
 
 }
+
+// returns results from https://onionoo.torproject.org/bandwidth
 func (c *Client) Clients(args Params) SClients {
 
 	req, err := c.SendRequest("/clients", args)
-
+	if err != nil {
+		log.Fatal(err)
+	}
 	resp, err := c.HttpClient.Do(req)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	defer resp.Body.Close()
-
+	var Cli SClients
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-	var Cli SClients
-	body, err := ioutil.ReadAll(resp.Body)
 	json.Unmarshal([]byte(body), &Cli)
 	return Cli
 
 }
+
+// returns results from https://onionoo.torproject.org/bandwidth
 func (c *Client) Uptime(args Params) SUptime {
 
-	req, err := c.SendRequest("/bandwidth", args)
-
+	req, err := c.SendRequest("/uptime", args)
+	if err != nil {
+		log.Fatal(err)
+	}
 	resp, err := c.HttpClient.Do(req)
 	if err != nil {
 		log.Fatal(err)
@@ -124,16 +143,17 @@ func (c *Client) Uptime(args Params) SUptime {
 
 	defer resp.Body.Close()
 
+	var Upt SUptime
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-	var Upt SUptime
-	body, err := ioutil.ReadAll(resp.Body)
 	json.Unmarshal([]byte(body), &Upt)
 	return Upt
 
 }
 
+// creates the request ready to be sent with the client, parameters and path
 func (c *Client) SendRequest(path string, args Params) (*http.Request, error) {
 	BaseURL, err := url.Parse("https://onionoo.torproject.org")
 	if err != nil {
