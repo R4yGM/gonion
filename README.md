@@ -2,7 +2,7 @@
 
 Lightweight Golang wrapper for querying Tor network data using the Onionoo service.
 
-[![GoDoc](https://godoc.org/github.com/R4yGM/gonion/gonion?status.svg)](http://godoc.org/github.com/R4yGM/gonion/gonion)
+[![GoDoc](https://godoc.org/github.com/R4yGM/gonion/gonion?status.svg)](http://godoc.org/github.com/R4yGM/gonion)
 [![Go Report Card](https://goreportcard.com/badge/github.com/R4yGM/gonion)](https://goreportcard.com/report/github.com/R4yGM/gonion)
 
 ```go
