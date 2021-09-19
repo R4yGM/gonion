@@ -8,13 +8,13 @@ import (
 	"net/url"
 )
 
-// initialize the client for gonion
+//Client : initialize the client for gonion
 type Client struct {
 	UserAgent  string
 	HttpClient *http.Client
 }
 
-// returns results from https://onionoo.torproject.org/summary
+//Summary : returns results from https://onionoo.torproject.org/summary
 func (c *Client) Summary(args Params) SSummary {
 	req, err := c.SendRequest("/summary", args)
 	if err != nil {
@@ -36,7 +36,7 @@ func (c *Client) Summary(args Params) SSummary {
 	return Sum
 }
 
-// returns results from https://onionoo.torproject.org/details
+//Details : returns results from https://onionoo.torproject.org/details
 func (c *Client) Details(args Params) SDetails {
 
 	req, err := c.SendRequest("/details", args)
@@ -60,7 +60,7 @@ func (c *Client) Details(args Params) SDetails {
 
 }
 
-// returns results from https://onionoo.torproject.org/bandwidth
+//Bandwidth : returns results from https://onionoo.torproject.org/bandwidth
 func (c *Client) Bandwidth(args Params) SBandwidth {
 
 	req, err := c.SendRequest("/bandwidth", args)
@@ -83,7 +83,7 @@ func (c *Client) Bandwidth(args Params) SBandwidth {
 
 }
 
-// returns results from https://onionoo.torproject.org/bandwidth
+//Weights : returns results from https://onionoo.torproject.org/bandwidth
 func (c *Client) Weights(args Params) SWeights {
 
 	req, err := c.SendRequest("/weights", args)
@@ -106,7 +106,7 @@ func (c *Client) Weights(args Params) SWeights {
 
 }
 
-// returns results from https://onionoo.torproject.org/bandwidth
+//Clients : returns results from https://onionoo.torproject.org/bandwidth
 func (c *Client) Clients(args Params) SClients {
 
 	req, err := c.SendRequest("/clients", args)
@@ -129,7 +129,7 @@ func (c *Client) Clients(args Params) SClients {
 
 }
 
-// returns results from https://onionoo.torproject.org/bandwidth
+//Uptime : returns results from https://onionoo.torproject.org/bandwidth
 func (c *Client) Uptime(args Params) SUptime {
 
 	req, err := c.SendRequest("/uptime", args)
@@ -153,7 +153,7 @@ func (c *Client) Uptime(args Params) SUptime {
 
 }
 
-// creates the request ready to be sent with the client, parameters and path
+//SendRequest : creates the request ready to be sent with the client, parameters and path
 func (c *Client) SendRequest(path string, args Params) (*http.Request, error) {
 	BaseURL, err := url.Parse("https://onionoo.torproject.org")
 	if err != nil {
