@@ -1,5 +1,6 @@
 package gonion
 
+// for more info https://metrics.torproject.org/onionoo.html#details
 type SDetails struct {
 	Version         string `json:"version"`
 	BuildRevision   string `json:"build_revision"`
@@ -62,6 +63,7 @@ type SDetails struct {
 	} `json:"bridges"`
 }
 
+// for more info https://metrics.torproject.org/onionoo.html#summary
 type SSummary struct {
 	Version         string `json:"version"`
 	BuildRevision   string `json:"build_revision"`
@@ -80,6 +82,7 @@ type SSummary struct {
 	} `json:"bridges"`
 }
 
+// for more info https://metrics.torproject.org/onionoo.html#bandwidth
 type SBandwidth struct {
 	Version         string `json:"version"`
 	BuildRevision   string `json:"build_revision"`
@@ -161,6 +164,7 @@ type SBandwidth struct {
 	BridgesTruncated int           `json:"bridges_truncated"`
 }
 
+// for more info https://metrics.torproject.org/onionoo.html#weights
 type SWeights struct {
 	Version         string `json:"version"`
 	BuildRevision   string `json:"build_revision"`
@@ -343,6 +347,7 @@ type SWeights struct {
 	Bridges          []interface{} `json:"bridges"`
 }
 
+// for more info https://metrics.torproject.org/onionoo.html#clients
 type SClients struct {
 	Version          string        `json:"version"`
 	BuildRevision    string        `json:"build_revision"`
@@ -389,6 +394,7 @@ type SClients struct {
 	BridgesTruncated int `json:"bridges_truncated"`
 }
 
+// for more info https://metrics.torproject.org/onionoo.html#uptime
 type SUptime struct {
 	Version         string `json:"version"`
 	BuildRevision   string `json:"build_revision"`
