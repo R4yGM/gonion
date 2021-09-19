@@ -1,6 +1,5 @@
 package gonion
 
-
 type SDetails struct {
 	Version         string `json:"version"`
 	BuildRevision   string `json:"build_revision"`
@@ -396,7 +395,7 @@ type SUptime struct {
 	RelaysPublished string `json:"relays_published"`
 	Relays          []struct {
 		Fingerprint string `json:"fingerprint"`
-		Uptime struct {
+		Uptime      struct {
 			OneMonth struct {
 				First    string  `json:"first"`
 				Last     string  `json:"last"`
