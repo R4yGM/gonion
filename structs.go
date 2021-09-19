@@ -161,3 +161,586 @@ type SBandwidth struct {
 	Bridges          []interface{} `json:"bridges"`
 	BridgesTruncated int           `json:"bridges_truncated"`
 }
+
+type SWeights struct {
+	Version         string `json:"version"`
+	BuildRevision   string `json:"build_revision"`
+	RelaysPublished string `json:"relays_published"`
+	Relays          []struct {
+		Fingerprint             string `json:"fingerprint"`
+		ConsensusWeightFraction struct {
+			OneMonth struct {
+				First    string  `json:"first"`
+				Last     string  `json:"last"`
+				Interval int     `json:"interval"`
+				Factor   float64 `json:"factor"`
+				Count    int     `json:"count"`
+				Values   []int   `json:"values"`
+			} `json:"1_month"`
+			SixMonths struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"6_months"`
+			OneYear struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"1_year"`
+			FiveYears struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"5_years"`
+		} `json:"consensus_weight_fraction,omitempty"`
+		GuardProbability struct {
+			OneMonth struct {
+				First    string  `json:"first"`
+				Last     string  `json:"last"`
+				Interval int     `json:"interval"`
+				Factor   float64 `json:"factor"`
+				Count    int     `json:"count"`
+				Values   []int   `json:"values"`
+			} `json:"1_month"`
+			SixMonths struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"6_months"`
+			OneYear struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"1_year"`
+			FiveYears struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"5_years"`
+		} `json:"guard_probability,omitempty"`
+		MiddleProbability struct {
+			OneMonth struct {
+				First    string  `json:"first"`
+				Last     string  `json:"last"`
+				Interval int     `json:"interval"`
+				Factor   float64 `json:"factor"`
+				Count    int     `json:"count"`
+				Values   []int   `json:"values"`
+			} `json:"1_month"`
+			SixMonths struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"6_months"`
+			OneYear struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"1_year"`
+			FiveYears struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"5_years"`
+		} `json:"middle_probability,omitempty"`
+		ExitProbability struct {
+			OneMonth struct {
+				First    string  `json:"first"`
+				Last     string  `json:"last"`
+				Interval int     `json:"interval"`
+				Factor   float64 `json:"factor"`
+				Count    int     `json:"count"`
+				Values   []int   `json:"values"`
+			} `json:"1_month"`
+			SixMonths struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"6_months"`
+			OneYear struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"1_year"`
+			FiveYears struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"5_years"`
+		} `json:"exit_probability,omitempty"`
+		ConsensusWeight struct {
+			OneMonth struct {
+				First    string  `json:"first"`
+				Last     string  `json:"last"`
+				Interval int     `json:"interval"`
+				Factor   float64 `json:"factor"`
+				Count    int     `json:"count"`
+				Values   []int   `json:"values"`
+			} `json:"1_month"`
+			SixMonths struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"6_months"`
+			OneYear struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"1_year"`
+			FiveYears struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"5_years"`
+		} `json:"consensus_weight,omitempty"`
+	} `json:"relays"`
+	RelaysTruncated  int           `json:"relays_truncated"`
+	BridgesPublished string        `json:"bridges_published"`
+	Bridges          []interface{} `json:"bridges"`
+}
+
+type SClients struct {
+	Version          string        `json:"version"`
+	BuildRevision    string        `json:"build_revision"`
+	RelaysPublished  string        `json:"relays_published"`
+	Relays           []interface{} `json:"relays"`
+	BridgesPublished string        `json:"bridges_published"`
+	Bridges          []struct {
+		Fingerprint    string `json:"fingerprint"`
+		AverageClients struct {
+			OneMonth struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"1_month"`
+			SixMonths struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"6_months"`
+			OneYear struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"1_year"`
+			FiveYears struct {
+				First    string        `json:"first"`
+				Last     string        `json:"last"`
+				Interval int           `json:"interval"`
+				Factor   float64       `json:"factor"`
+				Count    int           `json:"count"`
+				Values   []interface{} `json:"values"`
+			} `json:"5_years"`
+		} `json:"average_clients"`
+	} `json:"bridges"`
+	BridgesTruncated int `json:"bridges_truncated"`
+}
+
+type SUptime struct {
+	Version         string `json:"version"`
+	BuildRevision   string `json:"build_revision"`
+	RelaysPublished string `json:"relays_published"`
+	Relays          []struct {
+		Fingerprint string `json:"fingerprint"`
+		Uptime struct {
+			OneMonth struct {
+				First    string  `json:"first"`
+				Last     string  `json:"last"`
+				Interval int     `json:"interval"`
+				Factor   float64 `json:"factor"`
+				Count    int     `json:"count"`
+				Values   []int   `json:"values"`
+			} `json:"1_month"`
+			SixMonths struct {
+				First    string  `json:"first"`
+				Last     string  `json:"last"`
+				Interval int     `json:"interval"`
+				Factor   float64 `json:"factor"`
+				Count    int     `json:"count"`
+				Values   []int   `json:"values"`
+			} `json:"6_months"`
+			OneYear struct {
+				First    string  `json:"first"`
+				Last     string  `json:"last"`
+				Interval int     `json:"interval"`
+				Factor   float64 `json:"factor"`
+				Count    int     `json:"count"`
+				Values   []int   `json:"values"`
+			} `json:"1_year"`
+			FiveYears struct {
+				First    string  `json:"first"`
+				Last     string  `json:"last"`
+				Interval int     `json:"interval"`
+				Factor   float64 `json:"factor"`
+				Count    int     `json:"count"`
+				Values   []int   `json:"values"`
+			} `json:"5_years"`
+		} `json:"uptime,omitempty"`
+		Flags struct {
+			Exit struct {
+				OneMonth struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_month"`
+				SixMonths struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"6_months"`
+				OneYear struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_year"`
+				FiveYears struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"5_years"`
+			} `json:"Exit"`
+			Fast struct {
+				OneMonth struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_month"`
+				SixMonths struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"6_months"`
+				OneYear struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_year"`
+				FiveYears struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"5_years"`
+			} `json:"Fast"`
+			Guard struct {
+				OneMonth struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_month"`
+				SixMonths struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"6_months"`
+				OneYear struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_year"`
+				FiveYears struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"5_years"`
+			} `json:"Guard"`
+			HSDir struct {
+				OneMonth struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_month"`
+				SixMonths struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"6_months"`
+				OneYear struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_year"`
+				FiveYears struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"5_years"`
+			} `json:"HSDir"`
+			Running struct {
+				OneMonth struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_month"`
+				SixMonths struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"6_months"`
+				OneYear struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_year"`
+				FiveYears struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"5_years"`
+			} `json:"Running"`
+			Stable struct {
+				OneMonth struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_month"`
+				SixMonths struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"6_months"`
+				OneYear struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_year"`
+				FiveYears struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"5_years"`
+			} `json:"Stable"`
+			StaleDesc struct {
+				OneMonth struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_month"`
+				SixMonths struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"6_months"`
+				OneYear struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_year"`
+				FiveYears struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"5_years"`
+			} `json:"StaleDesc"`
+			V2Dir struct {
+				OneMonth struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_month"`
+				SixMonths struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"6_months"`
+				OneYear struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_year"`
+				FiveYears struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"5_years"`
+			} `json:"V2Dir"`
+			Valid struct {
+				OneMonth struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_month"`
+				SixMonths struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"6_months"`
+				OneYear struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"1_year"`
+				FiveYears struct {
+					First    string  `json:"first"`
+					Last     string  `json:"last"`
+					Interval int     `json:"interval"`
+					Factor   float64 `json:"factor"`
+					Count    int     `json:"count"`
+					Values   []int   `json:"values"`
+				} `json:"5_years"`
+			} `json:"Valid"`
+		} `json:"flags,omitempty"`
+	} `json:"relays"`
+	RelaysTruncated  int           `json:"relays_truncated"`
+	BridgesPublished string        `json:"bridges_published"`
+	Bridges          []interface{} `json:"bridges"`
+	BridgesTruncated int           `json:"bridges_truncated"`
+}
