@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// see https://metrics.torproject.org/onionoo.html#parameters for further info
+//Params : see https://metrics.torproject.org/onionoo.html#parameters for further info
 type Params struct {
 	Type string
 
@@ -58,7 +58,7 @@ func validOrder(s []string) bool {
 	return true
 }
 
-// parse parameters and creates a url
+//QueryParams : parse parameters and creates a url
 func (args Params) QueryParams() (url.Values, error) {
 	q := make(url.Values)
 
@@ -94,8 +94,8 @@ func (args Params) QueryParams() (url.Values, error) {
 		q.Add("as", args.As)
 	}
 
-	if args.As_name != "" {
-		q.Add("as_name", args.As_name)
+	if args.AsName != "" {
+		q.Add("as_name", args.AsName)
 	}
 
 	if args.Flag != "" {
