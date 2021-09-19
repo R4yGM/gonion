@@ -7,7 +7,6 @@ import (
 )
 
 // see https://metrics.torproject.org/onionoo.html#parameters for further info
-
 type Params struct {
 	Type string
 
@@ -21,13 +20,13 @@ type Params struct {
 
 	As string
 
-	As_name string
+	AsName string
 
 	Flag string
 
-	First_seen_days string
+	FirstSeenDays string
 
-	Last_seen_days string
+	LastSeenDays string
 
 	Contact string
 
@@ -37,9 +36,9 @@ type Params struct {
 
 	Os string
 
-	Host_name string
+	HostName string
 
-	Recommended_version bool
+	RecommendedVersion bool
 
 	Fields []string
 
@@ -50,7 +49,7 @@ type Params struct {
 	Limit int
 }
 
-func valid_Order(s []string) bool {
+func validOrder(s []string) bool {
 	for _, v := range s {
 		if v != "consensus_weight" || v != "first_seen" {
 			return false
@@ -59,6 +58,7 @@ func valid_Order(s []string) bool {
 	return true
 }
 
+// parse parameters and creates a url
 func (args Params) QueryParams() (url.Values, error) {
 	q := make(url.Values)
 
@@ -102,12 +102,12 @@ func (args Params) QueryParams() (url.Values, error) {
 		q.Add("flag", args.Flag)
 	}
 
-	if args.First_seen_days != "" {
-		q.Add("first_seen_days", args.First_seen_days)
+	if args.FirstSeenDays != "" {
+		q.Add("first_seen_days", args.FirstSeenDays)
 	}
 
-	if args.Last_seen_days != "" {
-		q.Add("last_seen_days", args.Last_seen_days)
+	if args.LastSeenDays != "" {
+		q.Add("last_seen_days", args.LastSeenDays)
 	}
 
 	if args.Contact != "" {
@@ -130,18 +130,18 @@ func (args Params) QueryParams() (url.Values, error) {
 		q.Add("os", args.Os)
 	}
 
-	if args.Host_name != "" {
-		q.Add("host_name", args.Host_name)
+	if args.HostName != "" {
+		q.Add("host_name", args.HostName)
 	}
 
-	q.Add("recommended_version", fmt.Sprintf("%t", args.Recommended_version))
+	q.Add("recommended_version", fmt.Sprintf("%t", args.RecommendedVersion))
 
 	if len(args.Fields) > 0 {
 		q.Add("fields", strings.Join(args.Fields, ","))
 	}
 
 	if len(args.Order) > 0 {
-		if valid_Order(args.Order) {
+		if validOrder(args.Order) {
 			q.Add("order", strings.Join(args.Order, ","))
 		}
 	}
