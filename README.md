@@ -42,3 +42,22 @@ import (
 	"github.com/R4yGM/gonion"
 )
 ```
+
+# Usage
+
+gonion contains a function for each method available on the onionoo service, check them here https://metrics.torproject.org/onionoo.html#methods
+
+which are :
+```
+Summary()
+Details()
+Bandwidth()
+Weights()
+Clients()
+Uptime()
+```
+and all the results are put inside on the respective structs inside the file structs.go, you can also check the responses here https://metrics.torproject.org/onionoo.html#responses that are the same of the structs
+
+**Parameters**
+
+you can insert all the parameters you want that are listed here https://metrics.torproject.org/onionoo.html#parameters inside the `gonion.Params{}` struct
