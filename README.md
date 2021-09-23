@@ -22,8 +22,8 @@ func main(){
         }
 
         g := gonion.Client{HttpClient: netClient}
-        res := g.Details(gonion.Params{Lookup : "37CB803A9B74A7B7693040ED94E4AA9E66838021", Running: true, RecommendedVersion: true})
-        fmt.Println(res)
+        res := g.Details(gonion.Params{Search : "R4y", Running: true, RecommendedVersion: true})
+        fmt.Println(res.Relays[0].Nickname)
 }
 ```
 
