@@ -2,176 +2,94 @@ package gonion
 
 import (
 	"encoding/json"
-	"io/ioutil"
-	"log"
+	"errors"
+	"fmt"
+	"io"
 	"net/http"
-	"net/url"
 )
 
-//Client : initialize the client for gonion
-type Client struct {
-	UserAgent  string
-	HttpClient *http.Client
+var (
+	// ErrNilClient is an error meaning the GonionClient tried to
+	// get instanciated using a nil HTTPClient.
+	ErrNilClient = errors.New("given client is nil")
+)
+
+// HTTPClient defines what a client have to implement.
+type HTTPClient interface {
+	Do(*http.Request) (*http.Response, error)
 }
 
-//Summary : returns results from https://onionoo.torproject.org/summary
-func (c *Client) Summary(args Params) SSummary {
-	req, err := c.SendRequest("/summary", args)
-	if err != nil {
-		log.Fatal(err)
-	}
+var _ HTTPClient = (*http.Client)(nil)
 
-	resp, err := c.HttpClient.Do(req)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	defer resp.Body.Close()
-	var Sum SSummary
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	json.Unmarshal([]byte(body), &Sum)
-	return Sum
+// GonionClient combines all that is needed for a Gonion client
+// to work.
+type GonionClient struct {
+	client    HTTPClient
+	UserAgent string
 }
 
-//Details : returns results from https://onionoo.torproject.org/details
-func (c *Client) Details(args Params) SDetails {
-
-	req, err := c.SendRequest("/details", args)
-	if err != nil {
-		log.Fatal(err)
+// NewGonionClient takes a HTTPClient and a User Agent string, and
+// returns a new GonionClient.
+func NewGonionClient(client HTTPClient, userAgent string) (*GonionClient, error) {
+	if client == nil {
+		return nil, ErrNilClient
 	}
-	resp, err := c.HttpClient.Do(req)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	defer resp.Body.Close()
-
-	var Det SDetails
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	json.Unmarshal([]byte(body), &Det)
-	return Det
-
+	return &GonionClient{
+		client:    client,
+		UserAgent: userAgent,
+	}, nil
 }
 
-//Bandwidth : returns results from https://onionoo.torproject.org/bandwidth
-func (c *Client) Bandwidth(args Params) SBandwidth {
-
-	req, err := c.SendRequest("/bandwidth", args)
-	if err != nil {
-		log.Fatal(err)
-	}
-	resp, err := c.HttpClient.Do(req)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	defer resp.Body.Close()
-	var Ban SBandwidth
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	json.Unmarshal([]byte(body), &Ban)
-	return Ban
-
+// ErrUnexpectedStatus is an error meaning the Onionoo server
+// answered with an unexpected status code (something unexpected
+// happened).
+type ErrUnexpectedStatus struct {
+	Body       []byte
+	StatusCode int
 }
 
-//Weights : returns results from https://onionoo.torproject.org/bandwidth
-func (c *Client) Weights(args Params) SWeights {
-
-	req, err := c.SendRequest("/weights", args)
-	if err != nil {
-		log.Fatal(err)
-	}
-	resp, err := c.HttpClient.Do(req)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	defer resp.Body.Close()
-	var Wei SWeights
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	json.Unmarshal([]byte(body), &Wei)
-	return Wei
-
+func (e ErrUnexpectedStatus) Error() string {
+	return fmt.Sprintf("unexpected status %d with body %s", e.StatusCode, e.Body)
 }
 
-//Clients : returns results from https://onionoo.torproject.org/bandwidth
-func (c *Client) Clients(args Params) SClients {
+var _ error = (*ErrUnexpectedStatus)(nil)
 
-	req, err := c.SendRequest("/clients", args)
-	if err != nil {
-		log.Fatal(err)
-	}
-	resp, err := c.HttpClient.Do(req)
-	if err != nil {
-		log.Fatal(err)
-	}
+func (gc *GonionClient) getEndp(endp string, args Params, dst interface{}) error {
+	// Create request
+	req, _ := http.NewRequest(http.MethodGet, "https://onionoo.torproject.org/"+endp, nil)
 
-	defer resp.Body.Close()
-	var Cli SClients
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	json.Unmarshal([]byte(body), &Cli)
-	return Cli
-
-}
-
-//Uptime : returns results from https://onionoo.torproject.org/bandwidth
-func (c *Client) Uptime(args Params) SUptime {
-
-	req, err := c.SendRequest("/uptime", args)
-	if err != nil {
-		log.Fatal(err)
-	}
-	resp, err := c.HttpClient.Do(req)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	defer resp.Body.Close()
-
-	var Upt SUptime
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	json.Unmarshal([]byte(body), &Upt)
-	return Upt
-
-}
-
-//SendRequest : creates the request ready to be sent with the client, parameters and path
-func (c *Client) SendRequest(path string, args Params) (*http.Request, error) {
-	BaseURL, err := url.Parse("https://onionoo.torproject.org")
-	if err != nil {
-		log.Fatal(err)
-	}
-	rel := &url.URL{Path: path}
-	u := BaseURL.ResolveReference(rel)
-	req, err := http.NewRequest("GET", u.String(), nil)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// Set headers
 	req.Header.Set("Accept", "application/json")
-	req.Header.Set("User-Agent", c.UserAgent)
+	req.Header.Set("User-Agent", gc.UserAgent)
+
+	// Encode query parameters
 	q, err := args.QueryParams()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	req.URL.RawQuery = q.Encode()
 
-	return req, nil
+	// Issue request
+	res, err := gc.client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer res.Body.Close()
+	body, _ := io.ReadAll(res.Body)
+
+	// Check status code
+	if res.StatusCode != http.StatusOK && res.StatusCode != http.StatusNotModified {
+		return &ErrUnexpectedStatus{
+			Body:       body,
+			StatusCode: res.StatusCode,
+		}
+	}
+
+	// Unmarshal response
+	err = json.Unmarshal(body, dst)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
