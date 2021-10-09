@@ -50,7 +50,8 @@ func TestGetUptime(t *testing.T) {
 		"valid-call": {
 			Client: newFakeHTTPClient(`{"version":"8.0","build_revision":"a0fbbe2","relays_published":"2021-10-01 11:00:00","relays":[{"fingerprint":"000853C5B75A25D6960A0910D40A5F2B210B7D3A","uptime":{"1_month":{"first":"2021-09-01 14:00:00","last":"2021-10-01 10:00:00","interval":14400,"factor":0.001001001001001001,"count":180,"values":[999,999]},"6_months":{"first":"2021-08-22 18:00:00","last":"2021-10-01 06:00:00","interval":43200,"factor":0.001001001001001001,"count":80,"values":[999]}},"flags":{"Guard":{"1_month":{"first":"2021-09-01 14:00:00","last":"2021-10-01 10:00:00","interval":14400,"factor":0.001001001001001001,"count":180,"values":[999]},"6_months":{"first":"2021-08-30 18:00:00","last":"2021-10-01 06:00:00","interval":43200,"factor":0.001001001001001001,"count":64,"values":[999,999]}}}}],"relays_truncated":7616,"bridges_published":"2021-10-01 10:50:31","bridges":[],"bridges_truncated":1450}`, http.StatusOK, nil),
 			Params: gonion.Params{
-				Limit: i(1),
+				Limit:  i(1),
+				Fields: &gonion.CommaSepList{"test1", "test2"},
 			},
 			ExpectedUptime: &gonion.Uptime{
 				Version:         "8.0",

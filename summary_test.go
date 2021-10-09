@@ -50,7 +50,8 @@ func TestGetSummary(t *testing.T) {
 		"valid-call": {
 			Client: newFakeHTTPClient(`{"version":"8.0","build_revision":"a0fbbe2","relays_published":"2021-09-30 14:00:00","relays":[{"n":"lyesn","f":"000853C5B75A25D6960A0910D40A5F2B210B7D3A","a":["165.22.200.169"],"r":true},{"n":"seele","f":"000A10D43011EA4928A35F610405F92B4433B4DC","a":["98.45.181.220"],"r":true},{"n":"CalyxInstitute14","f":"0011BD2485AD45D984EC4159C88FC066E5E3300E","a":["162.247.74.201"],"r":true},{"n":"skylarkRelay","f":"00240ECB2B535AA4C1E1874D744DFA6AF2E5E941","a":["95.111.230.178"],"r":true}],"relays_truncated":7290,"bridges_published":"2021-09-30 13:41:52","bridges":[],"bridges_truncated":1453}`, http.StatusOK, nil),
 			Params: gonion.Params{
-				Limit: i(4),
+				Limit:  i(4),
+				Fields: &gonion.CommaSepList{"test1", "test2"},
 			},
 			ExpectedSummary: &gonion.Summary{
 				Version:         "8.0",
