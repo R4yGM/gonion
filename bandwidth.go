@@ -1,9 +1,9 @@
 package gonion
 
 // GetBandwidth returns results from https://onionoo.torproject.org/bandwidth.
-func (gc *GonionClient) GetBandwidth(args Params) (*Bandwidth, error) {
+func GetBandwidth(client HTTPClient, args Params) (*Bandwidth, error) {
 	bandwidth := &Bandwidth{}
-	err := gc.getEndp("bandwidth", args, bandwidth)
+	err := getEndp(client, "bandwidth", args, bandwidth)
 	if err != nil {
 		return nil, err
 	}
@@ -15,6 +15,7 @@ func (gc *GonionClient) GetBandwidth(args Params) (*Bandwidth, error) {
 type Bandwidth struct {
 	Version          string          `json:"version"`
 	BuildRevision    string          `json:"build_revision"`
+	RelaysSkipped    *int            `json:"relays_skipped,omitempty"`
 	RelaysPublished  string          `json:"relays_published"`
 	Relays           []BandwidthNode `json:"relays"`
 	RelaysTruncated  *int            `json:"relays_truncated,omitempty"`

@@ -1,9 +1,9 @@
 package gonion
 
 // GetUptime returns results from https://onionoo.torproject.org/uptime.
-func (gc *GonionClient) GetUptime(args Params) (*Uptime, error) {
+func GetUptime(client HTTPClient, args Params) (*Uptime, error) {
 	uptime := &Uptime{}
-	err := gc.getEndp("uptime", args, uptime)
+	err := getEndp(client, "uptime", args, uptime)
 	if err != nil {
 		return nil, err
 	}
@@ -16,6 +16,7 @@ type Uptime struct {
 	Version          string        `json:"version"`
 	BuildRevision    string        `json:"build_revision"`
 	RelaysPublished  string        `json:"relays_published"`
+	RelaysSkipped    *int          `json:"relays_skipped,omitempty"`
 	Relays           []UptimeRelay `json:"relays"`
 	RelaysTruncated  *int          `json:"relays_truncated,omitempty"`
 	BridgesPublished string        `json:"bridges_published"`

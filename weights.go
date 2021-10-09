@@ -1,9 +1,9 @@
 package gonion
 
 // GetWeights returns results from https://onionoo.torproject.org/weights.
-func (gc *GonionClient) GetWeights(args Params) (*Weights, error) {
+func GetWeights(client HTTPClient, args Params) (*Weights, error) {
 	weights := &Weights{}
-	err := gc.getEndp("weights", args, weights)
+	err := getEndp(client, "weights", args, weights)
 	if err != nil {
 		return nil, err
 	}
@@ -16,6 +16,7 @@ type Weights struct {
 	Version          string       `json:"version"`
 	BuildRevision    string       `json:"build_revision"`
 	RelaysPublished  string       `json:"relays_published"`
+	RelaysSkipped    *int         `json:"relays_skipped,omitempty"`
 	Relays           []WeightNode `json:"relays"`
 	RelaysTruncated  *int         `json:"relays_truncated,omitempty"`
 	BridgesPublished string       `json:"bridges_published"`

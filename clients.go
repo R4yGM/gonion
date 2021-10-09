@@ -1,9 +1,9 @@
 package gonion
 
 // GetClients returns results from https://onionoo.torproject.org/clients.
-func (gc *GonionClient) GetClients(args Params) (*Clients, error) {
+func GetClients(client HTTPClient, args Params) (*Clients, error) {
 	clients := &Clients{}
-	err := gc.getEndp("clients", args, clients)
+	err := getEndp(client, "clients", args, clients)
 	if err != nil {
 		return nil, err
 	}
@@ -15,8 +15,10 @@ func (gc *GonionClient) GetClients(args Params) (*Clients, error) {
 type Clients struct {
 	Version          string          `json:"version"`
 	BuildRevision    string          `json:"build_revision"`
+	RelaysSkipped    *int            `json:"relays_skipped,omitempty"`
 	RelaysPublished  string          `json:"relays_published"`
 	Relays           []interface{}   `json:"relays"`
+	BridgesSkipped   *int            `json:"bridges_skipped,omitempty"`
 	BridgesPublished string          `json:"bridges_published"`
 	Bridges          []ClientsBridge `json:"bridges"`
 	BridgesTruncated *int            `json:"bridges_truncated,omitempty"`

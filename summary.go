@@ -1,9 +1,9 @@
 package gonion
 
 // GetSummary returns results from https://onionoo.torproject.org/summary.
-func (gc *GonionClient) GetSummary(args Params) (*Summary, error) {
+func GetSummary(client HTTPClient, args Params) (*Summary, error) {
 	summary := &Summary{}
-	err := gc.getEndp("summary", args, summary)
+	err := getEndp(client, "summary", args, summary)
 	if err != nil {
 		return nil, err
 	}
@@ -15,10 +15,13 @@ func (gc *GonionClient) GetSummary(args Params) (*Summary, error) {
 type Summary struct {
 	Version          string          `json:"version"`
 	BuildRevision    string          `json:"build_revision"`
+	RelaysSkipped    *int            `json:"relays_skipped,omitempty"`
 	RelaysPublished  string          `json:"relays_published"`
 	Relays           []SummaryRelay  `json:"relays"`
+	RelaysTruncated  *int            `json:"relays_truncated,omitempty"`
 	BridgesPublished string          `json:"bridges_published"`
 	Bridges          []SummaryBridge `json:"bridges"`
+	BridgesTruncated *int            `json:"bridges_truncated,omitempty"`
 }
 
 // SummaryRelay is a sub-Summary datastructure.

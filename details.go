@@ -1,9 +1,9 @@
 package gonion
 
 // GetDetails returns results from https://onionoo.torproject.org/details.
-func (gc *GonionClient) GetDetails(args Params) (*Details, error) {
+func GetDetails(client HTTPClient, args Params) (*Details, error) {
 	details := &Details{}
-	err := gc.getEndp("details", args, details)
+	err := getEndp(client, "details", args, details)
 	if err != nil {
 		return nil, err
 	}
@@ -15,10 +15,13 @@ func (gc *GonionClient) GetDetails(args Params) (*Details, error) {
 type Details struct {
 	Version          string            `json:"version"`
 	BuildRevision    string            `json:"build_revision"`
+	RelaysSkipped    *int              `json:"relays_skipped,omitempty"`
 	RelaysPublished  string            `json:"relays_published"`
+	RelaysTruncated  *int              `json:"relays_truncated,omitempty"`
 	Relays           []DetailedRelay   `json:"relays"`
 	BridgesPublished string            `json:"bridges_published"`
 	Bridges          []DetailedBridges `json:"bridges"`
+	BridgesTruncated *int              `json:"bridges_truncated,omitempty"`
 }
 
 // DetailedRelay is a sub-Details datastructure.
@@ -49,12 +52,14 @@ type DetailedRelay struct {
 	ExitPolicySummary        *ExitPolicySummary `json:"exit_policy_summary,omitempty"`
 	ExitPolicyV6Summary      *ExitPolicySummary `json:"exit_policy_v6_summary,omitempty"`
 	Contact                  *string            `json:"contact,omitempty"`
+	OverloadGeneralTimestamp *float64           `json:"overload_general_timestamp,omitempty"`
 	Platform                 string             `json:"platform"`
 	Version                  string             `json:"version"`
 	VersionStatus            string             `json:"version_status"`
 	EffectiveFamily          []string           `json:"effective_family"`
 	ConsensusWeightFraction  *float64           `json:"consensus_weight_fraction,omitempty"`
 	GuardProbability         *float64           `json:"guard_probability,omitempty"`
+	IndirectFamily           *[]string          `json:"indirect_family,omitempty"`
 	MiddleProbability        *float64           `json:"middle_probability,omitempty"`
 	ExitProbability          *float64           `json:"exit_probability,omitempty"`
 	RecommendedVersion       bool               `json:"recommended_version"`
