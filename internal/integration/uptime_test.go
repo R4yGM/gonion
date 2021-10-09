@@ -1,3 +1,6 @@
+//go:build integration
+// +build integration
+
 package integration_test
 
 import (
@@ -14,14 +17,13 @@ func TestGetUptime(t *testing.T) {
 		t.Run(testname, func(t *testing.T) {
 			assert := assert.New(t)
 
-			mdwClient := &MdwClient{}
-			client, _ := gonion.NewGonionClient(mdwClient, "")
+			client := &MdwClient{}
 
-			uptime, err := client.GetUptime(params)
+			uptime, err := gonion.GetUptime(client, params)
 
 			// Ensure no error
 			if !assert.Nil(err) {
-				t.Errorf("Last body [%s]\n", mdwClient.LastBody)
+				t.Errorf("Last body [%s]\n", client.LastBody)
 			}
 
 			// Reencode to JSON
@@ -31,7 +33,7 @@ func TestGetUptime(t *testing.T) {
 			// Decode both to interfaces
 			var expected interface{}
 			var actual interface{}
-			_ = json.Unmarshal(mdwClient.LastBody, &expected)
+			_ = json.Unmarshal(client.LastBody, &expected)
 			_ = json.Unmarshal(buf.Bytes(), &actual)
 
 			// Compares both to check valid API (and not nil)
