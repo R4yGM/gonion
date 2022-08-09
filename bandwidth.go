@@ -1,10 +1,9 @@
 package gonion
 
 // GetBandwidth returns results from https://onionoo.torproject.org/bandwidth.
-func GetBandwidth(client HTTPClient, args Params) (*Bandwidth, error) {
+func GetBandwidth(client HTTPClient, args Params, opts ...Option) (*Bandwidth, error) {
 	bandwidth := &Bandwidth{}
-	err := getEndp(client, "bandwidth", args, bandwidth)
-	if err != nil {
+	if err := getEndp(client, "bandwidth", args, bandwidth, opts...); err != nil {
 		return nil, err
 	}
 	return bandwidth, nil

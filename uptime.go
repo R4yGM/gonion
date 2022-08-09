@@ -1,10 +1,9 @@
 package gonion
 
 // GetUptime returns results from https://onionoo.torproject.org/uptime.
-func GetUptime(client HTTPClient, args Params) (*Uptime, error) {
+func GetUptime(client HTTPClient, args Params, opts ...Option) (*Uptime, error) {
 	uptime := &Uptime{}
-	err := getEndp(client, "uptime", args, uptime)
-	if err != nil {
+	if err := getEndp(client, "uptime", args, uptime, opts...); err != nil {
 		return nil, err
 	}
 	return uptime, nil

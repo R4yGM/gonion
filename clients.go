@@ -1,10 +1,9 @@
 package gonion
 
 // GetClients returns results from https://onionoo.torproject.org/clients.
-func GetClients(client HTTPClient, args Params) (*Clients, error) {
+func GetClients(client HTTPClient, args Params, opts ...Option) (*Clients, error) {
 	clients := &Clients{}
-	err := getEndp(client, "clients", args, clients)
-	if err != nil {
+	if err := getEndp(client, "clients", args, clients, opts...); err != nil {
 		return nil, err
 	}
 	return clients, nil

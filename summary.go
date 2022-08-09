@@ -1,10 +1,9 @@
 package gonion
 
 // GetSummary returns results from https://onionoo.torproject.org/summary.
-func GetSummary(client HTTPClient, args Params) (*Summary, error) {
+func GetSummary(client HTTPClient, args Params, opts ...Option) (*Summary, error) {
 	summary := &Summary{}
-	err := getEndp(client, "summary", args, summary)
-	if err != nil {
+	if err := getEndp(client, "summary", args, summary, opts...); err != nil {
 		return nil, err
 	}
 	return summary, nil

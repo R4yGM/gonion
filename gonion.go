@@ -1,6 +1,7 @@
 package gonion
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -99,13 +100,21 @@ func getEncoder() *schema.Encoder {
 	return encoder
 }
 
-func getEndp(client HTTPClient, endp string, params Params, dst interface{}) error {
+func getEndp(client HTTPClient, endp string, params Params, dst interface{}, opts ...Option) error {
 	if client == nil {
 		return ErrNilClient
 	}
 
+	// Apply options
+	options := &options{
+		Ctx: context.Background(),
+	}
+	for _, opt := range opts {
+		opt.apply(options)
+	}
+
 	// Create request
-	req, _ := http.NewRequest(http.MethodGet, "https://onionoo.torproject.org/"+endp, nil)
+	req, _ := http.NewRequestWithContext(options.Ctx, http.MethodGet, "https://onionoo.torproject.org/"+endp, nil)
 	req.Header.Set("Accept", "application/json")
 	q := url.Values{}
 	_ = getEncoder().Encode(params, q)
@@ -117,7 +126,10 @@ func getEndp(client HTTPClient, endp string, params Params, dst interface{}) err
 		return err
 	}
 	defer res.Body.Close()
-	body, _ := io.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		return err
+	}
 
 	// Check status code
 	if res.StatusCode != http.StatusOK && res.StatusCode != http.StatusNotModified {
@@ -128,10 +140,31 @@ func getEndp(client HTTPClient, endp string, params Params, dst interface{}) err
 	}
 
 	// Unmarshal response
-	err = json.Unmarshal(body, dst)
-	if err != nil {
+	if err = json.Unmarshal(body, dst); err != nil {
 		return err
 	}
 
 	return nil
+}
+
+type Option interface {
+	apply(*options)
+}
+
+type options struct {
+	Ctx context.Context
+}
+
+type ctxOption struct {
+	ctx context.Context
+}
+
+func (opt ctxOption) apply(options *options) {
+	options.Ctx = opt.ctx
+}
+
+func WithContext(ctx context.Context) Option {
+	return ctxOption{
+		ctx: ctx,
+	}
 }

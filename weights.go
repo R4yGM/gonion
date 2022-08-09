@@ -1,10 +1,9 @@
 package gonion
 
 // GetWeights returns results from https://onionoo.torproject.org/weights.
-func GetWeights(client HTTPClient, args Params) (*Weights, error) {
+func GetWeights(client HTTPClient, args Params, opts ...Option) (*Weights, error) {
 	weights := &Weights{}
-	err := getEndp(client, "weights", args, weights)
-	if err != nil {
+	if err := getEndp(client, "weights", args, weights, opts...); err != nil {
 		return nil, err
 	}
 	return weights, nil
