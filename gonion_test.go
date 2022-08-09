@@ -113,14 +113,6 @@ func newFakeReadCloser(str string) *fakeReadCloser {
 	}
 }
 
-func str(str string) *string {
-	return &str
-}
-
-func i(i int) *int {
-	return &i
-}
-
-func f(f float64) *float64 {
-	return &f
+func ptr[T any](t T) *T {
+	return &t
 }

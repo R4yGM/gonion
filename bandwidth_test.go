@@ -50,7 +50,7 @@ func TestGetBandwidth(t *testing.T) {
 		"valid-call": {
 			Client: newFakeHTTPClient(`{"version":"8.0","build_revision":"a0fbbe2","relays_published":"2021-09-30 13:00:00","relays":[{"fingerprint":"000853C5B75A25D6960A0910D40A5F2B210B7D3A","write_history":{"1_month":{"first":"2021-08-30 12:00:00","last":"2021-09-29 12:00:00","interval":86400,"factor":2723.6236232700335,"count":31,"values":[999]},"6_months":{"first":"2021-08-22 12:00:00","last":"2021-09-29 12:00:00","interval":86400,"factor":2882.4591997800267,"count":39,"values":[1,1,28,320]}},"read_history":{"1_month":{"first":"2021-08-30 12:00:00","last":"2021-09-29 12:00:00","interval":86400,"factor":2697.803559480341,"count":31,"values":[999,564]},"6_months":{"first":"2021-08-22 12:00:00","last":"2021-09-29 12:00:00","interval":86400,"factor":2858.2600114872075,"count":39,"values":[2]}}}],"relays_truncated":7291,"bridges_published":"2021-09-30 12:41:52","bridges":[],"bridges_truncated":1454}`, http.StatusOK, nil),
 			Params: gonion.Params{
-				Limit:  i(4),
+				Limit:  ptr(4),
 				Fields: &gonion.CommaSepList{"test1", "test2"},
 			},
 			ExpectedBandwidth: &gonion.Bandwidth{
@@ -68,7 +68,7 @@ func TestGetBandwidth(t *testing.T) {
 								Factor:   2723.6236232700335,
 								Count:    31,
 								Values: []*int{
-									i(999),
+									ptr(999),
 								},
 							},
 							SixMonths: &gonion.HistoryEntry{
@@ -78,10 +78,10 @@ func TestGetBandwidth(t *testing.T) {
 								Factor:   2882.4591997800267,
 								Count:    39,
 								Values: []*int{
-									i(1),
-									i(1),
-									i(28),
-									i(320),
+									ptr(1),
+									ptr(1),
+									ptr(28),
+									ptr(320),
 								},
 							},
 						},
@@ -93,8 +93,8 @@ func TestGetBandwidth(t *testing.T) {
 								Factor:   2697.803559480341,
 								Count:    31,
 								Values: []*int{
-									i(999),
-									i(564),
+									ptr(999),
+									ptr(564),
 								},
 							},
 							SixMonths: &gonion.HistoryEntry{
@@ -104,16 +104,16 @@ func TestGetBandwidth(t *testing.T) {
 								Factor:   2858.2600114872075,
 								Count:    39,
 								Values: []*int{
-									i(2),
+									ptr(2),
 								},
 							},
 						},
 					},
 				},
-				RelaysTruncated:  i(7291),
+				RelaysTruncated:  ptr(7291),
 				BridgesPublished: "2021-09-30 12:41:52",
 				Bridges:          []gonion.BandwidthNode{},
-				BridgesTruncated: i(1454),
+				BridgesTruncated: ptr(1454),
 			},
 			ExpectedErr: nil,
 		},
