@@ -112,7 +112,7 @@ func TestGetUptime(t *testing.T) {
 				},
 				RelaysTruncated:  ptr(7616),
 				BridgesPublished: "2021-10-01 10:50:31",
-				Bridges:          []interface{}{},
+				Bridges:          []any{},
 				BridgesTruncated: ptr(1450),
 			},
 			ExpectedErr: nil,

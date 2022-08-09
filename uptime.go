@@ -19,7 +19,7 @@ type Uptime struct {
 	Relays           []UptimeRelay `json:"relays"`
 	RelaysTruncated  *int          `json:"relays_truncated,omitempty"`
 	BridgesPublished string        `json:"bridges_published"`
-	Bridges          []interface{} `json:"bridges"`
+	Bridges          []any         `json:"bridges"`
 	BridgesTruncated *int          `json:"bridges_truncated,omitempty"`
 }
 

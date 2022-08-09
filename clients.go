@@ -16,7 +16,7 @@ type Clients struct {
 	BuildRevision    string          `json:"build_revision"`
 	RelaysSkipped    *int            `json:"relays_skipped,omitempty"`
 	RelaysPublished  string          `json:"relays_published"`
-	Relays           []interface{}   `json:"relays"`
+	Relays           []any           `json:"relays"`
 	BridgesSkipped   *int            `json:"bridges_skipped,omitempty"`
 	BridgesPublished string          `json:"bridges_published"`
 	Bridges          []ClientsBridge `json:"bridges"`

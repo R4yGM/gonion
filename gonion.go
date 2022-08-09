@@ -100,7 +100,7 @@ func getEncoder() *schema.Encoder {
 	return encoder
 }
 
-func getEndp(client HTTPClient, endp string, params Params, dst interface{}, opts ...Option) error {
+func getEndp(client HTTPClient, endp string, params Params, dst any, opts ...Option) error {
 	if client == nil {
 		return ErrNilClient
 	}

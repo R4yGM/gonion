@@ -57,7 +57,7 @@ func TestGetClients(t *testing.T) {
 				Version:          "8.0",
 				BuildRevision:    "a0fbbe2",
 				RelaysPublished:  "2021-09-30 14:00:00",
-				Relays:           []interface{}{},
+				Relays:           []any{},
 				BridgesPublished: "2021-09-30 13:41:52",
 				Bridges: []gonion.ClientsBridge{
 					{
