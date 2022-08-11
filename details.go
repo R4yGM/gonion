@@ -1,10 +1,9 @@
 package gonion
 
 // GetDetails returns results from https://onionoo.torproject.org/details.
-func GetDetails(client HTTPClient, args Params) (*Details, error) {
+func GetDetails(client HTTPClient, args Params, opts ...Option) (*Details, error) {
 	details := &Details{}
-	err := getEndp(client, "details", args, details)
-	if err != nil {
+	if err := getEndp(client, "details", args, details, opts...); err != nil {
 		return nil, err
 	}
 	return details, nil
@@ -91,6 +90,7 @@ type DetailedBridges struct {
 	VersionStatus            string    `json:"version_status"`
 	RecommendedVersion       bool      `json:"recommended_version"`
 	BridgedbDistributor      *string   `json:"bridgedb_distributor,omitempty"`
+	Contact                  *string   `json:"contact,omitempty"`
 	Transports               *[]string `json:"transports,omitempty"`
 	OverloadGeneralTimestamp *float64  `json:"overload_general_timestamp,omitempty"`
 }

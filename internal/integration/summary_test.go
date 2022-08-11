@@ -31,8 +31,8 @@ func TestGetSummary(t *testing.T) {
 			_ = json.NewEncoder(buf).Encode(summary)
 
 			// Decode both to interfaces
-			var expected interface{}
-			var actual interface{}
+			var expected any
+			var actual any
 			_ = json.Unmarshal(client.LastBody, &expected)
 			_ = json.Unmarshal(buf.Bytes(), &actual)
 
